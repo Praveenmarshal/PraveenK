@@ -268,7 +268,8 @@
     <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
     <p class="section-subtitle">Real-world data projects showcasing end-to-end analytical capabilities.</p>
   </div>
-  <div class="projects-grid" id="projectsGrid">
+  <div class="projects-track-wrap" id="projectsTrack">
+    <div class="projects-grid" id="projectsGrid">
     <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
       <div class="pc-number">01</div>
       <div class="project-img-wrap"><img src="https://images.pexels.com/photos/7947970/pexels-photo-7947970.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Smartphone Market Analysis" loading="lazy"></div>
@@ -380,6 +381,13 @@
       </div>
       <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
     </div>
+  </div><!-- end projects-grid -->
+  </div><!-- end projects-track-wrap -->
+  <div class="projects-scroll-track"><div class="projects-scroll-bar" id="projectsScrollBar"></div></div>
+  <div class="projects-nav">
+    <button class="pnav-btn" onclick="scrollProjects(-1)">←</button>
+    <span class="pnav-count" id="projCount">1 / 8</span>
+    <button class="pnav-btn" onclick="scrollProjects(1)">→</button>
   </div>
 </section>
 

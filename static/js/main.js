@@ -400,7 +400,7 @@ async function sendMessage() {
       body: JSON.stringify({ message: text })
     });
     const data = await res.json();
-    typing.innerHTML = data.response || 'Sorry, I could not get a response.';
+    typing.innerHTML = data.reply || data.response || 'Sorry, I could not get a response.';
   } catch {
     typing.innerHTML = '⚠️ Connection error. Please try again.';
   }
@@ -432,14 +432,85 @@ window.exportChatHistory = exportChatHistory;
 
 /* ── RESUME DOWNLOAD ─────────────────────────────────────── */
 function downloadResumePDF() {
-  fetch('/api/resume/download')
-    .then(r => r.json())
-    .then(d => { if (d.url) window.open(d.url, '_blank'); })
-    .catch(() => window.open('/static/resume/Praveen_K_resume.pdf', '_blank'));
+  // Try direct static file first (most reliable)
+  const link = document.createElement('a');
+  link.href = '/static/resume/Praveen_K_resume.pdf';
+  link.download = 'Praveen_K_Resume.pdf';
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 window.downloadResumePDF = downloadResumePDF;
 
-/* ── ACTIVE NAV HIGHLIGHT ────────────────────────────────── */
+/* ── PROJECTS HORIZONTAL SCROLL ──────────────────────────── */
+(function initProjectsScroll() {
+  const track   = document.getElementById('projectsTrack');
+  const bar     = document.getElementById('projectsScrollBar');
+  const count   = document.getElementById('projCount');
+  const cards   = document.querySelectorAll('.project-card');
+  if (!track || !cards.length) return;
+
+  const CARD_W  = 340 + 28; // card width + gap
+  let current   = 0;
+
+  // Update scroll progress bar + counter
+  function updateUI() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const pct = maxScroll > 0 ? (track.scrollLeft / maxScroll) * 100 : 0;
+    if (bar) bar.style.width = Math.max(8, pct) + '%';
+
+    // Active card
+    const idx = Math.round(track.scrollLeft / CARD_W);
+    current = Math.max(0, Math.min(idx, cards.length - 1));
+    if (count) count.textContent = (current + 1) + ' / ' + cards.length;
+
+    cards.forEach((c, i) => c.classList.toggle('active-card', i === current));
+  }
+
+  track.addEventListener('scroll', updateUI, { passive: true });
+
+  // Arrow nav
+  window.scrollProjects = function(dir) {
+    const next = Math.max(0, Math.min(current + dir, cards.length - 1));
+    track.scrollTo({ left: next * CARD_W, behavior: 'smooth' });
+  };
+
+  // Drag to scroll
+  let isDown = false, startX = 0, scrollLeft = 0;
+  track.addEventListener('mousedown', e => {
+    isDown = true; startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing';
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mouseup',    () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchmove',  e => {
+    const diff = touchStartX - e.touches[0].clientX;
+    track.scrollLeft += diff * 0.8;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  // Keyboard arrow keys when hovering
+  track.setAttribute('tabindex', '0');
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') scrollProjects(1);
+    if (e.key === 'ArrowLeft')  scrollProjects(-1);
+  });
+
+  // Init
+  updateUI();
+  setTimeout(updateUI, 100);
+})();
 const sections = document.querySelectorAll('section[id]');
 const navLinks  = document.querySelectorAll('.nav-link');
 window.addEventListener('scroll', () => {
