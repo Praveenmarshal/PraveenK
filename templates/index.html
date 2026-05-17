@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praveen K — Data Analyst | AI & Data Science Portfolio</title>
+  <meta name="description" content="Praveen K is a Data Analyst fresher specialising in Python, SQL, Power BI, Excel & Tableau. Explore 8 real-world analytics projects, internship experience, and an AI-powered portfolio.">
+  <meta name="keywords" content="Praveen K, Data Analyst, Python, SQL, Power BI, Tableau, Excel, Machine Learning, EDA, Dashboard, Tamil Nadu, Trichy, AI Data Science, Portfolio">
+  <meta name="author" content="Praveen K">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://praveenk.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://praveenk.dev/">
+  <meta property="og:title" content="Praveen K — Data Analyst Portfolio">
+  <meta property="og:description" content="AI-powered full-stack portfolio. Python · SQL · Power BI · 8 real-world analytics projects.">
+  <meta property="og:locale" content="en_IN">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Praveen K","jobTitle":"Data Analyst","email":"praveenkicha01@gmail.com","url":"https://praveenk.dev","sameAs":["https://www.linkedin.com/in/praveen-kannan-6862382a2","https://github.com/praveenmarshal"]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<canvas id="threeCanvas"></canvas>
+<div class="scan-lines"></div>
+<div class="page-progress" id="pageProgress"></div>
+
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-rings"><div class="lr lr1"></div><div class="lr lr2"></div><div class="lr lr3"></div></div>
+    <div class="loader-logo">PK<span class="blink">_</span></div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text" id="loaderText">INITIALISING SYSTEMS...</div>
+  </div>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="nav-logo"><span class="logo-bracket">[</span>PK<span class="logo-bracket">]</span></a>
+  <ul class="nav-links">
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#skills" class="nav-link">Skills</a></li>
+    <li><a href="#experience" class="nav-link">Experience</a></li>
+    <li><a href="#projects" class="nav-link">Projects</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="resume-btn magnetic" onclick="downloadResumePDF()"><span>Resume ↓</span></button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a><a href="#skills">Skills</a>
+  <a href="#experience">Experience</a><a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+  <a href="#" onclick="downloadResumePDF();return false;">Download Resume</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-layout">
+    <div class="hero-text-col">
+      <div class="hero-status"><span class="status-dot"></span><span>Available for Opportunities</span></div>
+      <div class="hero-label-top">DATA ANALYST · AI ENGINEER</div>
+      <h1 class="hero-name">
+        <span class="name-row" data-text="PRAVEEN">PRAVEEN</span>
+        <span class="name-row accent-name" data-text="K.">K.</span>
+      </h1>
+      <div class="hero-typewriter">
+        <span class="tw-prefix">&gt;&gt; </span><span id="typewriterText"></span><span class="tw-cursor">|</span>
+      </div>
+      <p class="hero-desc">Fresher Data Analyst crafting <span class="hl">actionable insights</span> from raw data. Specializing in <span class="hl">Python · SQL · Power BI</span> — turning numbers into decisions that matter.</p>
+      <div class="hero-cta-row">
+        <a href="#projects" class="btn-primary magnetic" onclick="createRipple(event)"><span>Explore Work</span><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#contact" class="btn-outline magnetic" onclick="createRipple(event)"><span>Get In Touch</span></a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://www.linkedin.com/in/praveen-kannan-6862382a2" target="_blank" rel="noopener" class="social-pill">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+        <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="social-pill">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+        </a>
+        <a href="mailto:praveenkicha01@gmail.com" class="social-pill">
+          <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Email
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-art-col">
+      <div class="holo-card" id="holoCard">
+        <div class="holo-inner">
+          <div class="holo-header">
+            <span class="hd hd-r"></span><span class="hd hd-y"></span><span class="hd hd-g"></span>
+            <span class="holo-title">analyst.profile</span>
+          </div>
+          <div class="holo-avatar">
+            <div class="av-ring ar1"></div><div class="av-ring ar2"></div><div class="av-ring ar3"></div>
+            <div class="av-icon">PK</div>
+          </div>
+          <div class="holo-stats">
+            <div class="hs"><span class="hs-val" data-count="8">0</span><span class="hs-label">Projects</span></div>
+            <div class="hs-sep"></div>
+            <div class="hs"><span class="hs-val" data-count="2">0</span><span class="hs-label">Internships</span></div>
+            <div class="hs-sep"></div>
+            <div class="hs"><span class="hs-val" data-count="6">0</span><span class="hs-label">Tools</span></div>
+          </div>
+          <div class="holo-bars">
+            <div class="hb-item"><span>Python</span><div class="hb-track"><div class="hb-fill" style="--w:90%"></div></div><span>90%</span></div>
+            <div class="hb-item"><span>Power BI</span><div class="hb-track"><div class="hb-fill" style="--w:93%"></div></div><span>93%</span></div>
+            <div class="hb-item"><span>SQL</span><div class="hb-track"><div class="hb-fill" style="--w:88%"></div></div><span>88%</span></div>
+          </div>
+          <div class="holo-scanline"></div>
+        </div>
+      </div>
+      <div class="float-badge fb1"><span>🐍</span> Python</div>
+      <div class="float-badge fb2"><span>📊</span> Power BI</div>
+      <div class="float-badge fb3"><span>🗄️</span> SQL</div>
+      <div class="float-badge fb4"><span>🤖</span> ML</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><div class="scroll-mouse"><div class="scroll-wheel"></div></div><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-tag">// 01 — About</div>
+    <h2 class="section-title">Turning <span class="gradient-text">Data</span><br>Into Decisions</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal-left">
+      <p>I'm <span class="hl">Praveen K</span>, a B.Tech graduate in <span class="hl">Artificial Intelligence &amp; Data Science</span> from Vetri Vinayaha College of Engineering and Technology (2026).</p>
+      <p>With proven ability to extract actionable insights from large datasets and translate them into business-driven decisions. I specialise in <span class="hl">Python, SQL, Power BI, Excel,</span> and <span class="hl">Tableau</span> for end-to-end data analytics.</p>
+      <p>I thrive on solving complex problems, building interactive dashboards, and leveraging <span class="hl">Machine Learning</span> to uncover hidden patterns in data.</p>
+      <div class="about-badges">
+        <span class="badge">Analytical Thinking</span><span class="badge">Problem Solving</span>
+        <span class="badge">Attention to Detail</span><span class="badge">Effective Communication</span>
+        <span class="badge">Data Interpretation</span><span class="badge">Quick Learner</span>
+      </div>
+    </div>
+    <div class="stats-grid reveal-right">
+      <div class="stat-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+        <div class="stat-number gradient-text" data-count="8">0</div><div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+        <div class="stat-number gradient-text" data-count="2">0</div><div class="stat-label">Internships</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+        <div class="stat-number gradient-text" data-count="6">0</div><div class="stat-label">Tools Mastered</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+        <div class="stat-number gradient-text" data-count="15">0</div><div class="stat-label">Dashboards Built</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-tag">// 02 — Skills</div>
+    <h2 class="section-title">Technical <span class="gradient-text">Arsenal</span></h2>
+    <p class="section-subtitle">A comprehensive toolkit for turning raw data into strategic insights.</p>
+  </div>
+  <div class="skills-layout">
+    <div class="reveal-left">
+      <div class="skill-category">
+        <div class="skill-category-title">// Programming &amp; Databases</div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Python (Pandas, NumPy)</span><span class="pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>SQL</span><span class="pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>MS Excel (Advanced)</span><span class="pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-category-title">// Data Visualisation</div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Power BI</span><span class="pct">93%</span></div><div class="skill-bar"><div class="skill-fill" data-width="93"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Tableau</span><span class="pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-category-title">// Data Analysis &amp; ML</div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Exploratory Data Analysis</span><span class="pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Statistical Analysis</span><span class="pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-info"><span>Machine Learning</span><span class="pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+      </div>
+    </div>
+    <div class="skills-right reveal-right">
+      <div class="cube-container">
+        <div class="cube">
+          <div class="cube-face front">Python</div><div class="cube-face back">SQL</div>
+          <div class="cube-face right">Power BI</div><div class="cube-face left">Tableau</div>
+          <div class="cube-face top">Excel</div><div class="cube-face bottom">ML</div>
+        </div>
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip">Data Modelling</span><span class="skill-chip">KPI Analysis</span>
+        <span class="skill-chip">Business Intelligence</span><span class="skill-chip">Dashboards</span>
+        <span class="skill-chip">Data Cleaning</span><span class="skill-chip">DAX Measures</span>
+        <span class="skill-chip">EDA</span><span class="skill-chip">Forecasting</span>
+        <span class="skill-chip">Streamlit</span><span class="skill-chip">Plotly</span>
+        <span class="skill-chip">API Integration</span><span class="skill-chip">Pandas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-tag">// 03 — Experience</div>
+    <h2 class="section-title">Professional <span class="gradient-text">Journey</span></h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Jan 2025 — May 2025</div>
+      <div class="timeline-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="tc-accent"></div>
+        <h3>Python Intern</h3><div class="company">Solutions Pro Company, Trichy</div>
+        <ul>
+          <li>Conducted data analysis using Python (Pandas, NumPy) and SQL across multiple datasets</li>
+          <li>Built Power BI reports and Excel dashboards for summarising insights and business KPIs</li>
+          <li>Automated data preprocessing workflows to improve efficiency and reduce manual effort</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Jun 2024 — Aug 2024</div>
+      <div class="timeline-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="tc-accent"></div>
+        <h3>Data Analytics Intern</h3><div class="company">Solutions Pro Company, Trichy</div>
+        <ul>
+          <li>Cleaned and transformed structured datasets using SQL, improving data quality for analysis</li>
+          <li>Developed interactive Power BI dashboards to track key business metrics performance trends</li>
+          <li>Performed exploratory data analysis (EDA) to identify patterns and support data-driven decisions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2022 — 2026</div>
+      <div class="timeline-card" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="tc-accent"></div>
+        <h3>B.Tech — AI &amp; Data Science</h3><div class="company">Vetri Vinayaha College of Engineering and Technology</div>
+        <ul>
+          <li>Specialisation in Artificial Intelligence and Data Science</li>
+          <li>Built multiple real-world data analytics projects using Python, SQL, and Power BI</li>
+          <li>Developed strong foundation in statistics, machine learning, and data visualisation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-tag">// 04 — Projects</div>
+    <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+    <p class="section-subtitle">Real-world data projects showcasing end-to-end analytical capabilities.</p>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">01</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/7947970/pexels-photo-7947970.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Smartphone Market Analysis" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">SQL</span><span class="project-tag">Power BI</span></div>
+      <h3>Smartphone Market Analysis 2018–2026</h3>
+      <p>Engineered preprocessing workflows in Python/SQL to analyse longitudinal smartphone sales data across 15+ brands. Mid-range CAGR outpacing premium by 12%.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">15+</div><div class="label">Brands</div></div>
+        <div class="project-metric"><div class="val">12%</div><div class="label">CAGR Found</div></div>
+        <div class="project-metric"><div class="val">8yr</div><div class="label">Data Span</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">02</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/7947568/pexels-photo-7947568.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Nykaa Campaign Hub" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">DAX</span><span class="project-tag">Analytics</span></div>
+      <h3>Nykaa Campaign Intelligence Hub</h3>
+      <p>Processed 55,000+ marketing records across 6 channels. Multi-page Power BI dashboard tracking ROI, CTR. Email + influencer contributed 61% of total revenue.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">55K+</div><div class="label">Records</div></div>
+        <div class="project-metric"><div class="val">6</div><div class="label">Channels</div></div>
+        <div class="project-metric"><div class="val">61%</div><div class="label">Revenue Share</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">03</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Customer Churn Analysis" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">SQL</span><span class="project-tag">Power BI</span><span class="project-tag">DAX</span></div>
+      <h3>Customer Churn Analysis</h3>
+      <p>Analysed customer behavioural data to compute churn risk scores. Identified high-risk segment (≤6 months, no add-ons) with 68% churn probability for targeted retention.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">68%</div><div class="label">Churn Prob.</div></div>
+        <div class="project-metric"><div class="val">DAX</div><div class="label">Measures</div></div>
+        <div class="project-metric"><div class="val">4</div><div class="label">Dashboards</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">04</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Nassau Candy Dashboard" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Streamlit</span><span class="project-tag">Plotly</span></div>
+      <h3>Nassau Candy Profitability Dashboard</h3>
+      <p>Live Streamlit analytics dashboard for Nassau Candy Distributor — product profitability, division performance, Pareto analysis, and factory-level insights.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">Live</div><div class="label">Dashboard</div></div>
+        <div class="project-metric"><div class="val">Pareto</div><div class="label">Analysis</div></div>
+        <div class="project-metric"><div class="val">5+</div><div class="label">KPI Views</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">05</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Retail Sales Dashboard" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">SQL</span><span class="project-tag">Power BI</span><span class="project-tag">Analytics</span></div>
+      <h3>Retail Sales Analysis Dashboard</h3>
+      <p>Multi-page retail analytics dashboard evaluating product performance, outlet efficiency, and sales distribution with advanced SQL aggregation and window functions.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">Multi</div><div class="label">Pages</div></div>
+        <div class="project-metric"><div class="val">SQL</div><div class="label">Advanced</div></div>
+        <div class="project-metric"><div class="val">10+</div><div class="label">Outlets</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">06</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Pizza Sales Dashboard" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">SQL</span><span class="project-tag">Power BI</span><span class="project-tag">KPI</span></div>
+      <h3>Pizza Sales Analytics Dashboard</h3>
+      <p>Interactive BI dashboard analysing pizza sales trends, customer ordering behaviour, revenue distribution, and product performance with KPI-driven visualisations.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">KPI</div><div class="label">Driven</div></div>
+        <div class="project-metric"><div class="val">Trend</div><div class="label">Analysis</div></div>
+        <div class="project-metric"><div class="val">BI</div><div class="label">Dashboard</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">07</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/10469894/pexels-photo-10469894.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Cricket Player Dashboard" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">DAX</span><span class="project-tag">Sports Analytics</span></div>
+      <h3>Cricket Player Analysis Dashboard</h3>
+      <p>Interactive Power BI dashboard analysing cricket player statistics, batting and bowling metrics across ODI, T20, and Test formats with dynamic filtering.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">3</div><div class="label">Formats</div></div>
+        <div class="project-metric"><div class="val">ODI·T20</div><div class="label">·Test</div></div>
+        <div class="project-metric"><div class="val">DAX</div><div class="label">Metrics</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+
+    <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="pc-number">08</div>
+      <div class="project-img-wrap"><img src="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700" alt="Tamil Movie Recommendation" loading="lazy"></div>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">API</span><span class="project-tag">TMDb</span></div>
+      <h3>Tamil Movie Recommendation System</h3>
+      <p>Python-based movie recommendation system using TMDb API with weighted IMDb-style ranking algorithms and Pandas for real-time personalised recommendations.</p>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="val">TMDb</div><div class="label">API</div></div>
+        <div class="project-metric"><div class="val">IMDb</div><div class="label">Ranking</div></div>
+        <div class="project-metric"><div class="val">Live</div><div class="label">Real-time</div></div>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ GitHub</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="resume-banner reveal">
+    <div class="rb-content">
+      <div class="rb-icon">📄</div>
+      <h3>Ready to Collaborate?</h3>
+      <p>Download my resume to learn more about my skills, experience, and projects.</p>
+      <button class="btn-primary magnetic" onclick="downloadResumePDF();createRipple(event)"><span>⬇ Download Resume</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-tag">// 05 — Contact</div>
+    <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+    <p class="section-subtitle">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="contact-info-cards">
+        <div class="contact-card" data-tilt data-tilt-max="10"><div class="contact-icon">📧</div><div><div class="cinfo-label">Email</div><div class="cinfo-val">praveenkicha01@gmail.com</div></div></div>
+        <div class="contact-card" data-tilt data-tilt-max="10"><div class="contact-icon">📱</div><div><div class="cinfo-label">Phone</div><div class="cinfo-val">+91 8825870266</div></div></div>
+        <div class="contact-card" data-tilt data-tilt-max="10"><div class="contact-icon">📍</div><div><div class="cinfo-label">Location</div><div class="cinfo-val">Trichy, Tamil Nadu, India</div></div></div>
+        <div class="contact-card" data-tilt data-tilt-max="10"><div class="contact-icon">🎓</div><div><div class="cinfo-label">Education</div><div class="cinfo-val">B.Tech AI &amp; Data Science, 2026</div></div></div>
+      </div>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/praveen-kannan-6862382a2" target="_blank" rel="noopener" class="social-link">in</a>
+        <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="social-link">⌘</a>
+        <a href="mailto:praveenkicha01@gmail.com" class="social-link">✉</a>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="formName">Your Name</label>
+          <input type="text" id="formName" placeholder="John Doe" autocomplete="name">
+          <div class="form-error">Name must be at least 2 characters</div>
+        </div>
+        <div class="form-group">
+          <label for="formEmail">Your Email</label>
+          <input type="email" id="formEmail" placeholder="john@example.com" autocomplete="email">
+          <div class="form-error">Please enter a valid email address</div>
+        </div>
+        <div class="form-group">
+          <label for="formMsg">Message</label>
+          <textarea id="formMsg" placeholder="Tell me about your project or idea…" rows="5"></textarea>
+          <div class="form-error">Message must be at least 10 characters</div>
+        </div>
+        <button type="submit" class="btn-primary magnetic" style="width:100%" onclick="createRipple(event)"><span>Send Message →</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2025 Praveen K. Crafted with precision &amp; passion.</p>
+  <div class="footer-links">
+    <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/praveen-kannan-6862382a2" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:praveenkicha01@gmail.com">Email</a>
+    <a href="/admin" style="opacity:.3;font-size:.65rem">Admin</a>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()" aria-label="Open AI assistant">💬<span class="badge-dot"></span></button>
+<div class="chatbot-window" id="chatbotWindow" role="dialog">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info"><h4>Praveen's AI Assistant</h4><p>● Online — Powered by Gemini</p></div>
+    <div class="chat-actions">
+      <button class="chat-export-btn" onclick="exportChatHistory()">↓ Export</button>
+      <button class="chat-close" onclick="toggleChatbot()">✕</button>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+    <div class="chat-msg bot">👋 Hi! I'm Praveen's AI assistant. Ask me anything about his skills, experience, or projects!</div>
+  </div>
+  <div class="quick-replies" id="quickReplies">
+    <button class="quick-reply" onclick="sendQuickReply('Tell me about Praveen')">About Praveen</button>
+    <button class="quick-reply" onclick="sendQuickReply('What are your top skills?')">Skills</button>
+    <button class="quick-reply" onclick="sendQuickReply('Tell me about your projects')">Projects</button>
+    <button class="quick-reply" onclick="sendQuickReply('How can I contact Praveen?')">Contact</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Type a message…" aria-label="Chat message">
+    <button class="chat-send" onclick="sendMessage()" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>
