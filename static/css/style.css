@@ -284,7 +284,7 @@ section{
 .hero-art-col{position:relative;display:flex;justify-content:center;align-items:center}
 
 .holo-card{
-  width:340px;height:440px;
+  width:340px;height:500px;
   border-radius:16px;
   border:1px solid rgba(0,229,255,.3);
   background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(255,45,120,.04));
