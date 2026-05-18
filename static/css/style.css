@@ -897,12 +897,162 @@ section{
 }
 @keyframes ripple-out{to{transform:scale(60);opacity:0}}
 
-/* ── SCROLL REVEAL ANIMATIONS ────────────────────────────── */
-.reveal,.reveal-left,.reveal-right{opacity:0;transition:all .8s cubic-bezier(.22,1,.36,1)}
-.reveal{transform:translateY(40px)}
-.reveal-left{transform:translateX(-50px)}
-.reveal-right{transform:translateX(50px)}
-.revealed{opacity:1!important;transform:none!important}
+/* ══════════════════════════════════════════════════════════
+   3D SCROLL ANIMATION SYSTEM
+══════════════════════════════════════════════════════════ */
+
+/* Base state — all animatable elements start hidden */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-flip,
+.reveal-zoom,
+.reveal-rotate,
+.reveal-drop {
+  opacity:0;
+  will-change:transform,opacity;
+  transition:
+    opacity .9s cubic-bezier(.22,1,.36,1),
+    transform .9s cubic-bezier(.22,1,.36,1);
+}
+
+/* ── Animation variants ─ */
+.reveal        { transform:perspective(800px) translateY(60px) rotateX(8deg) }
+.reveal-left   { transform:perspective(800px) translateX(-80px) rotateY(12deg) }
+.reveal-right  { transform:perspective(800px) translateX(80px) rotateY(-12deg) }
+.reveal-flip   { transform:perspective(800px) rotateX(90deg) translateY(30px); transform-origin:top center }
+.reveal-zoom   { transform:perspective(800px) scale(.75) translateZ(-100px) }
+.reveal-rotate { transform:perspective(800px) rotate(-8deg) translateY(50px) scale(.9) }
+.reveal-drop   { transform:perspective(800px) translateY(-60px) rotateX(-12deg) }
+
+/* ── Revealed (final) state ─ */
+.revealed {
+  opacity:1 !important;
+  transform:perspective(800px) translateY(0) translateX(0) translateZ(0)
+            rotateX(0deg) rotateY(0deg) rotate(0deg) scale(1) !important;
+}
+
+/* ── Stagger delays for children ─ */
+.stagger-children > *:nth-child(1) { transition-delay:.05s }
+.stagger-children > *:nth-child(2) { transition-delay:.15s }
+.stagger-children > *:nth-child(3) { transition-delay:.25s }
+.stagger-children > *:nth-child(4) { transition-delay:.35s }
+.stagger-children > *:nth-child(5) { transition-delay:.45s }
+.stagger-children > *:nth-child(6) { transition-delay:.55s }
+
+/* ── Parallax layers ─ */
+.parallax-slow  { will-change:transform; transition:none }
+.parallax-med   { will-change:transform; transition:none }
+.parallax-fast  { will-change:transform; transition:none }
+
+/* ── Section entrance lines ─ */
+.section-tag::before {
+  content:'';
+  display:inline-block;
+  width:0;height:1px;
+  background:var(--accent);
+  vertical-align:middle;
+  margin-right:.6rem;
+  transition:width .8s cubic-bezier(.22,1,.36,1);
+  opacity:.6;
+}
+.section-tag.revealed::before { width:30px }
+
+/* ── Number counter flash ─ */
+.stat-number.counting {
+  animation:number-flash .2s ease;
+}
+@keyframes number-flash {
+  0%  { filter:brightness(1) }
+  50% { filter:brightness(2) drop-shadow(0 0 8px var(--accent)) }
+  100%{ filter:brightness(1) }
+}
+
+/* ── Skill bars enhanced ─ */
+.skill-fill {
+  position:relative;
+  overflow:hidden;
+}
+.skill-fill::after {
+  content:'';
+  position:absolute;
+  top:0;right:-100%;bottom:0;
+  width:60px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shimmer-bar 2s ease-in-out infinite;
+}
+@keyframes shimmer-bar {
+  0%   { right:100% }
+  100% { right:-60px }
+}
+
+/* ── Timeline dot enhanced ─ */
+.timeline-dot.visible {
+  animation:dot-explode .6s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes dot-explode {
+  0%   { transform:scale(0); opacity:0 }
+  60%  { transform:scale(1.8); opacity:1 }
+  100% { transform:scale(1) }
+}
+
+/* ── Card tilt 3D depth shadow ─ */
+.project-card,
+.stat-card,
+.contact-card,
+.timeline-card {
+  transition:
+    transform .5s cubic-bezier(.22,1,.36,1),
+    box-shadow .5s ease,
+    border-color .5s ease,
+    opacity .9s cubic-bezier(.22,1,.36,1);
+}
+
+/* ── Scroll progress glow ─ */
+.page-progress {
+  box-shadow: 0 0 8px var(--accent), 0 0 20px var(--accent);
+}
+
+/* ── Section divider line ─ */
+section::before {
+  content:'';
+  position:absolute;
+  top:0;left:6vw;right:6vw;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  z-index:1;
+}
+#hero::before { display:none }
+
+/* ── Floating particles (JS injected) ─ */
+.scroll-particle {
+  position:fixed;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--accent);
+  pointer-events:none;
+  z-index:3;
+  opacity:0;
+  box-shadow:0 0 6px var(--accent);
+}
+
+/* ── Horizontal scroll section label ─ */
+.scroll-section-label {
+  position:fixed;
+  left:2rem;top:50%;
+  transform:translateY(-50%) rotate(-90deg);
+  transform-origin:center center;
+  font-family:var(--font-mono);
+  font-size:.65rem;
+  color:var(--accent);
+  letter-spacing:.3em;
+  opacity:0;
+  transition:opacity .5s ease;
+  pointer-events:none;
+  z-index:100;
+  white-space:nowrap;
+}
+.scroll-section-label.visible { opacity:.4 }
 
 /* ── MAGNETIC BUTTONS ────────────────────────────────────── */
 .magnetic{transition:transform .3s cubic-bezier(.22,1,.36,1)}
