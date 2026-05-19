@@ -342,11 +342,15 @@ function revealOnScroll() {
   document.querySelectorAll(
     '.reveal,.reveal-left,.reveal-right,.reveal-flip,.reveal-zoom,.reveal-rotate,.reveal-drop'
   ).forEach(el => {
-    if (el.classList.contains('revealed')) return;
     const rect = el.getBoundingClientRect();
-    if (rect.top < wh * 0.88 && rect.bottom > 0) {
+    const inView = rect.top < wh * 0.88 && rect.bottom > 0;
+
+    if (inView && !el.classList.contains('revealed')) {
       el.classList.add('revealed');
       spawnBurst(el);
+    } else if (!inView && el.classList.contains('revealed')) {
+      // Remove so it re-animates next time it enters
+      el.classList.remove('revealed');
     }
   });
 }
