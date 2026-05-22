@@ -628,284 +628,217 @@ function downloadResumePDF() {
 }
 window.downloadResumePDF = downloadResumePDF;
 
-/* ── PROJECTS — CIRCULAR 3D CAROUSEL ────────────────────── */
-(function initCarousel() {
+/* ── PROJECTS — DNA HELIX SCROLL ────────────────────────── */
+(function initDNA() {
 
-  /* ─ Project data ─ */
-  const projects = [
-    { num:'01', title:'Smartphone Market Analysis 2018–2026', tags:['Python','SQL','Power BI'],
-      desc:'Engineered preprocessing workflows in Python/SQL to analyse longitudinal smartphone sales data across 15+ brands. Mid-range CAGR outpacing premium by 12%.',
-      metrics:[{val:'15+',label:'Brands'},{val:'12%',label:'CAGR'},{val:'8yr',label:'Span'}],
-      img:'https://images.pexels.com/photos/7947970/pexels-photo-7947970.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'02', title:'Nykaa Campaign Intelligence Hub', tags:['Power BI','DAX','Analytics'],
-      desc:'Processed 55,000+ marketing records across 6 channels. Multi-page Power BI dashboard tracking ROI, CTR. Email + influencer contributed 61% of total revenue.',
-      metrics:[{val:'55K+',label:'Records'},{val:'6',label:'Channels'},{val:'61%',label:'Revenue'}],
-      img:'https://images.pexels.com/photos/7947568/pexels-photo-7947568.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'03', title:'Customer Churn Analysis', tags:['SQL','Power BI','DAX'],
-      desc:'Analysed customer behavioural data to compute churn risk scores. Identified high-risk segment (≤6 months, no add-ons) with 68% churn probability for targeted retention.',
-      metrics:[{val:'68%',label:'Churn'},{val:'DAX',label:'Measures'},{val:'4',label:'Dashboards'}],
-      img:'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'04', title:'Nassau Candy Profitability Dashboard', tags:['Python','Streamlit','Plotly'],
-      desc:'Live Streamlit analytics dashboard for Nassau Candy Distributor — product profitability, division performance, Pareto analysis, and factory-level insights.',
-      metrics:[{val:'Live',label:'Dashboard'},{val:'Pareto',label:'Analysis'},{val:'5+',label:'KPIs'}],
-      img:'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'05', title:'Retail Sales Analysis Dashboard', tags:['SQL','Power BI','Analytics'],
-      desc:'Multi-page retail analytics dashboard evaluating product performance, outlet efficiency, and sales distribution with advanced SQL aggregation and window functions.',
-      metrics:[{val:'Multi',label:'Pages'},{val:'SQL',label:'Advanced'},{val:'10+',label:'Outlets'}],
-      img:'https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'06', title:'Pizza Sales Analytics Dashboard', tags:['SQL','Power BI','KPI'],
-      desc:'Interactive BI dashboard analysing pizza sales trends, customer ordering behaviour, revenue distribution, and product performance with KPI-driven visualisations.',
-      metrics:[{val:'KPI',label:'Driven'},{val:'Trend',label:'Analysis'},{val:'BI',label:'Dashboard'}],
-      img:'https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'07', title:'Cricket Player Analysis Dashboard', tags:['Power BI','DAX','Sports'],
-      desc:'Interactive Power BI dashboard analysing cricket player statistics, batting and bowling metrics across ODI, T20, and Test formats with dynamic filtering.',
-      metrics:[{val:'3',label:'Formats'},{val:'ODI·T20',label:'·Test'},{val:'DAX',label:'Metrics'}],
-      img:'https://images.pexels.com/photos/10469894/pexels-photo-10469894.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-    { num:'08', title:'Tamil Movie Recommendation System', tags:['Python','API','TMDb'],
-      desc:'Python-based movie recommendation system using TMDb API with weighted IMDb-style ranking algorithms and Pandas for real-time personalised recommendations.',
-      metrics:[{val:'TMDb',label:'API'},{val:'IMDb',label:'Ranking'},{val:'Live',label:'Real-time'}],
-      img:'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=700' },
-  ];
+  const wrap  = document.getElementById('dnaScrollWrap');
+  const track = document.getElementById('dnaTrack');
+  const nodes = document.querySelectorAll('.dna-node');
+  const dotsWrap = document.getElementById('dnaProgressDots');
+  if (!wrap || !nodes.length) return;
 
-  let current = 0;
-  let autoTimer = null;
-  let autoProgress = 0;
-  const AUTO_INTERVAL = 4000;
+  const CARD_W = 340;
+  let activeIdx = 0;
 
-  /* ─ DOM refs ─ */
-  const center    = document.querySelector('.carousel-center');
-  const ccImg     = document.getElementById('ccImg');
-  const ccNum     = document.getElementById('ccNum');
-  const ccTags    = document.getElementById('ccTags');
-  const ccTitle   = document.getElementById('ccTitle');
-  const ccDesc    = document.getElementById('ccDesc');
-  const ccMetrics = document.getElementById('ccMetrics');
-  const thumbs    = document.querySelectorAll('.carousel-thumb');
-  const dotsWrap  = document.getElementById('carouselDots');
-  if (!center) return;
-
-  /* ─ Build dots ─ */
-  projects.forEach((_, i) => {
+  /* ── Build progress dots ── */
+  nodes.forEach((_, i) => {
     const d = document.createElement('button');
-    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goTo(i);
+    d.className = 'dna-progress-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => snapTo(i));
     dotsWrap && dotsWrap.appendChild(d);
   });
 
-  /* ─ Build auto-progress arc ─ */
-  const progressWrap = document.createElement('div');
-  progressWrap.className = 'carousel-progress-wrap';
-  progressWrap.innerHTML = `
-    <div class="carousel-progress-arc">
-      <svg viewBox="0 0 36 36" width="36" height="36">
-        <circle class="arc-track" cx="18" cy="18" r="15.9"/>
-        <circle class="arc-fill" id="arcFill" cx="18" cy="18" r="15.9"
-          style="stroke-dasharray:${2*Math.PI*15.9};stroke-dashoffset:${2*Math.PI*15.9}"/>
-      </svg>
-    </div>
-    <span class="carousel-auto-label">AUTO-PLAY</span>`;
-  document.querySelector('.carousel-controls') &&
-    document.querySelector('.carousel-controls').after(progressWrap);
-  const arcFill = document.getElementById('arcFill');
-  const arcTotal = 2 * Math.PI * 15.9;
-
-  /* ─ Position thumbnails in a circle ─ */
-  function positionThumbs() {
-    const ring = document.getElementById('carouselRing');
-    if (!ring) return;
-    const r = ring.offsetWidth / 2;
-    thumbs.forEach((t, i) => {
-      const angle = (i / projects.length) * Math.PI * 2 - Math.PI / 2;
-      const x = r + Math.cos(angle) * (r - 23) - 23;
-      const y = r + Math.sin(angle) * (r - 23) - 23;
-      t.style.left = x + 'px';
-      t.style.top  = y + 'px';
+  /* ── Classify nodes by distance from active ── */
+  function updateNodes(idx) {
+    activeIdx = idx;
+    nodes.forEach((node, i) => {
+      const dist = Math.abs(i - idx);
+      node.classList.remove('active','near','far');
+      if (dist === 0) node.classList.add('active');
+      else if (dist === 1) node.classList.add('near');
+      else node.classList.add('far');
     });
-  }
-  positionThumbs();
-  window.addEventListener('resize', positionThumbs);
-
-  /* ─ Render a project into center card ─ */
-  function render(idx, dir) {
-    const p = projects[idx];
-
-    // Animate out
-    center.classList.remove('cc-entering');
-    center.classList.add('cc-leaving');
-
-    setTimeout(() => {
-      // Update content
-      ccImg.src = p.img;
-      ccImg.alt = p.title;
-      ccNum.textContent = p.num;
-      ccTitle.textContent = p.title;
-      ccDesc.textContent  = p.desc;
-      ccTags.innerHTML    = p.tags.map(t => `<span class="cc-tag">${t}</span>`).join('');
-      ccMetrics.innerHTML = p.metrics.map(m =>
-        `<div class="cc-metric"><div class="val">${m.val}</div><div class="label">${m.label}</div></div>`
-      ).join('');
-
-      // Animate in
-      center.classList.remove('cc-leaving');
-      center.classList.add('cc-entering');
-
-      // Thumbnails
-      thumbs.forEach((t, i) => t.classList.toggle('active', i === idx));
-
-      // Dots
-      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-
-      // Ring rotation animation
-      animateRingTo(idx);
-
-    }, 300);
+    // Update dots
+    document.querySelectorAll('.dna-progress-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === idx));
   }
 
-  /* ─ Animate orbit ring to angle ─ */
-  let ringAngle = 0;
-  function animateRingTo(idx) {
-    const targetAngle = -(idx / projects.length) * 360;
-    const ring = document.getElementById('carouselRing');
-    if (!ring) return;
-    ring.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1)';
-    ring.style.transform  = `rotate(${targetAngle}deg)`;
-    // Counter-rotate thumbs so labels stay upright
-    thumbs.forEach(t => {
-      t.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1), border-color .3s, background .3s, box-shadow .3s';
-      t.style.transform  = `rotate(${-targetAngle}deg)`;
+  /* ── Snap scroll to a node ── */
+  function snapTo(idx) {
+    const target = nodes[idx];
+    if (!target) return;
+    const nodeCenter = target.offsetLeft + CARD_W / 2;
+    const wrapCenter = wrap.offsetWidth / 2;
+    wrap.scrollTo({ left: nodeCenter - wrapCenter, behavior: 'smooth' });
+    updateNodes(idx);
+  }
+
+  /* ── On scroll: find closest node ── */
+  let scrollTimer;
+  wrap.addEventListener('scroll', () => {
+    const wrapCenter = wrap.scrollLeft + wrap.offsetWidth / 2;
+    let closest = 0, minDist = Infinity;
+    nodes.forEach((node, i) => {
+      const nodeCenter = node.offsetLeft + CARD_W / 2;
+      const dist = Math.abs(nodeCenter - wrapCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
     });
-    // Re-apply active scale on top
-    thumbs.forEach((t, i) => {
-      if (i === idx) t.style.transform = `rotate(${-targetAngle}deg) scale(1.35)`;
-    });
-  }
+    updateNodes(closest);
 
-  /* ─ Navigate ─ */
-  function goTo(idx) {
-    const dir = idx > current ? 1 : -1;
-    current = (idx + projects.length) % projects.length;
-    render(current, dir);
-    resetAuto();
-  }
+    // Snap after scroll stops
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => snapTo(closest), 120);
+  }, { passive: true });
 
-  window.carouselNext = () => goTo(current + 1);
-  window.carouselPrev = () => goTo(current - 1);
+  /* ── Drag to scroll ── */
+  let isDown = false, startX = 0, scrollLeft = 0;
+  wrap.addEventListener('mousedown', e => {
+    isDown = true; startX = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft; wrap.style.cursor = 'grabbing';
+  });
+  wrap.addEventListener('mouseleave', () => { isDown = false; wrap.style.cursor = 'grab'; });
+  wrap.addEventListener('mouseup',    () => { isDown = false; wrap.style.cursor = 'grab'; });
+  wrap.addEventListener('mousemove',  e => {
+    if (!isDown) return; e.preventDefault();
+    wrap.scrollLeft = scrollLeft - (e.pageX - wrap.offsetLeft - startX) * 1.4;
+  });
 
-  /* ─ Thumb clicks ─ */
-  thumbs.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+  /* ── Touch swipe ── */
+  let tx = 0;
+  wrap.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  wrap.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 30) snapTo(Math.max(0, Math.min(nodes.length-1, activeIdx + (dx>0?1:-1))));
+  });
 
-  /* ─ Keyboard ─ */
+  /* ── Keyboard ── */
   document.addEventListener('keydown', e => {
-    const scene = document.querySelector('.carousel-scene');
-    if (!scene) return;
-    const r = scene.getBoundingClientRect();
+    const r = wrap.getBoundingClientRect();
     if (r.top < window.innerHeight && r.bottom > 0) {
-      if (e.key === 'ArrowRight') carouselNext();
-      if (e.key === 'ArrowLeft')  carouselPrev();
+      if (e.key === 'ArrowRight') snapTo(Math.min(nodes.length-1, activeIdx+1));
+      if (e.key === 'ArrowLeft')  snapTo(Math.max(0, activeIdx-1));
     }
   });
 
-  /* ─ Swipe support ─ */
-  let touchX = 0;
-  center.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive:true });
-  center.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 40) dx < 0 ? carouselNext() : carouselPrev();
-  });
-
-  /* ─ Auto-play ─ */
-  function resetAuto() {
-    clearInterval(autoTimer);
-    autoProgress = 0;
-    autoTimer = setInterval(() => {
-      autoProgress += 100 / (AUTO_INTERVAL / 50);
-      if (arcFill) {
-        arcFill.style.strokeDashoffset = arcTotal * (1 - autoProgress / 100);
-      }
-      if (autoProgress >= 100) {
-        autoProgress = 0;
-        goTo(current + 1);
-      }
-    }, 50);
-  }
-
-  /* ─ Live canvas background ─ */
-  (function initProjCanvas() {
-    const canvas = document.getElementById('projCanvas');
-    if (!canvas || typeof THREE === 'undefined') return;
-
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
-    camera.position.z = 5;
-
-    // Floating torus knots
-    const geometries = [
-      new THREE.TorusKnotGeometry(.6, .18, 100, 16),
-      new THREE.TorusKnotGeometry(.4, .12, 80, 12),
-      new THREE.OctahedronGeometry(.5),
-      new THREE.IcosahedronGeometry(.4),
-    ];
-    const meshes = geometries.map((g, i) => {
-      const mat = new THREE.MeshBasicMaterial({
-        color: [0x00e5ff, 0xff2d78, 0xb400ff, 0xffd166][i],
-        wireframe:true,
-        transparent:true,
-        opacity: 0.15,
-      });
-      const m = new THREE.Mesh(g, mat);
-      m.position.set(
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 3,
-        (Math.random() - 0.5) * 2
-      );
-      scene.add(m);
-      return m;
-    });
-
-    // Mini particles
-    const pCount = 600;
-    const pPos   = new Float32Array(pCount * 3);
-    for (let i = 0; i < pCount; i++) {
-      pPos[i*3]   = (Math.random() - 0.5) * 12;
-      pPos[i*3+1] = (Math.random() - 0.5) * 8;
-      pPos[i*3+2] = (Math.random() - 0.5) * 4;
-    }
-    const pGeo = new THREE.BufferGeometry();
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-    const pMat = new THREE.PointsMaterial({ size:.04, color:0x00e5ff, transparent:true, opacity:.5, blending:THREE.AdditiveBlending });
-    scene.add(new THREE.Points(pGeo, pMat));
+  /* ── Live DNA canvas background ── */
+  (function initDNACanvas() {
+    const canvas = document.getElementById('dnaCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
     function resize() {
-      const w = canvas.parentElement.offsetWidth;
-      const h = canvas.parentElement.offsetHeight;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     }
     resize();
     window.addEventListener('resize', resize);
 
-    let frame = 0;
-    function animate() {
-      requestAnimationFrame(animate);
-      frame += 0.008;
-      meshes.forEach((m, i) => {
-        m.rotation.x = frame * (0.3 + i * 0.1);
-        m.rotation.y = frame * (0.2 + i * 0.15);
-        m.position.y += Math.sin(frame + i) * 0.003;
-      });
-      renderer.render(scene, camera);
+    // Get accent color from CSS var (fallback cyan)
+    function getAccent() {
+      return getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent').trim() || '#00e5ff';
     }
-    animate();
+
+    let frame = 0;
+    const NODES = 60;   // base pairs along helix
+    const AMP   = 90;   // vertical amplitude
+    const FREQ  = 0.09; // wave frequency
+
+    function draw() {
+      requestAnimationFrame(draw);
+      frame += 0.012;
+
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const accent = getAccent();
+
+      for (let i = 0; i < NODES; i++) {
+        const t   = (i / NODES);
+        const x   = t * W;
+        const phase = t * Math.PI * 2 * 3.5 + frame; // 3.5 full twists
+
+        // Two strands of the helix
+        const y1 = H/2 + Math.sin(phase)         * AMP;
+        const y2 = H/2 + Math.sin(phase + Math.PI) * AMP;
+
+        // Depth: closer to center of helix = brighter
+        const depth1 = (Math.sin(phase) + 1) / 2;         // 0..1
+        const depth2 = (Math.sin(phase + Math.PI) + 1) / 2;
+
+        // Strand 1 node (cyan/accent)
+        const r1 = 4 + depth1 * 8;
+        const a1 = 0.15 + depth1 * 0.7;
+        ctx.beginPath();
+        ctx.arc(x, y1, r1, 0, Math.PI * 2);
+        ctx.fillStyle = hexToRgba(accent, a1);
+        ctx.shadowColor = accent;
+        ctx.shadowBlur  = depth1 * 18;
+        ctx.fill();
+
+        // Strand 2 node (accent-alt / pink)
+        const r2 = 4 + depth2 * 8;
+        const a2 = 0.15 + depth2 * 0.7;
+        ctx.beginPath();
+        ctx.arc(x, y2, r2, 0, Math.PI * 2);
+        ctx.fillStyle = hexToRgba('#ff2d78', a2 * 0.8);
+        ctx.shadowColor = '#ff2d78';
+        ctx.shadowBlur  = depth2 * 14;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Cross-bar (base pair)
+        if (i % 3 === 0) {
+          const midDepth = (depth1 + depth2) / 2;
+          ctx.beginPath();
+          ctx.moveTo(x, y1);
+          ctx.lineTo(x, y2);
+          ctx.strokeStyle = hexToRgba(accent, 0.08 + midDepth * 0.18);
+          ctx.lineWidth   = 1 + midDepth * 1.5;
+          ctx.stroke();
+        }
+
+        // Connecting line between nodes on same strand
+        if (i > 0) {
+          const prevT  = (i-1) / NODES;
+          const prevX  = prevT * W;
+          const prevPh = prevT * Math.PI * 2 * 3.5 + frame;
+          const pY1    = H/2 + Math.sin(prevPh)         * AMP;
+          const pY2    = H/2 + Math.sin(prevPh + Math.PI) * AMP;
+
+          ctx.beginPath();
+          ctx.moveTo(prevX, pY1);
+          ctx.lineTo(x, y1);
+          ctx.strokeStyle = hexToRgba(accent, 0.12);
+          ctx.lineWidth   = 1;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(prevX, pY2);
+          ctx.lineTo(x, y2);
+          ctx.strokeStyle = hexToRgba('#ff2d78', 0.1);
+          ctx.lineWidth   = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    function hexToRgba(hex, alpha) {
+      hex = hex.replace('#','');
+      if (hex.length === 3) hex = hex.split('').map(c=>c+c).join('');
+      const r = parseInt(hex.slice(0,2),16);
+      const g = parseInt(hex.slice(2,4),16);
+      const b = parseInt(hex.slice(4,6),16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    draw();
   })();
 
-  /* ─ Init ─ */
-  render(0, 1);
-  resetAuto();
+  /* ── Init ── */
+  updateNodes(0);
+  // Centre first card after layout
+  setTimeout(() => snapTo(0), 100);
 
 })();
-
 

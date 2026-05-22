@@ -275,60 +275,158 @@
   <div class="section-header reveal">
     <div class="section-tag">// 04 — Projects</div>
     <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-    <p class="section-subtitle">Real-world data projects showcasing end-to-end analytical capabilities.</p>
+    <p class="section-subtitle">Scroll to explore — each project connected through the data strand.</p>
   </div>
 
-  <!-- 3D Carousel wrapper -->
-  <div class="carousel-scene" id="carouselScene">
+  <div class="dna-scene" id="dnaScene">
+    <!-- Live DNA canvas background -->
+    <canvas id="dnaCanvas"></canvas>
 
-    <!-- Live 3D background canvas -->
-    <canvas id="projCanvas"></canvas>
+    <!-- Horizontal scroll track -->
+    <div class="dna-scroll-wrap" id="dnaScrollWrap">
+      <div class="dna-track" id="dnaTrack">
 
-    <!-- Rotating ring of orbit dots -->
-    <div class="orbit-ring orbit-ring-1"></div>
-    <div class="orbit-ring orbit-ring-2"></div>
-    <div class="orbit-ring orbit-ring-3"></div>
+        <div class="dna-node" data-idx="0">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="0">
+            <div class="dna-card-num">01</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/7947970/pexels-photo-7947970.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Smartphone Market Analysis" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>Python</span><span>SQL</span><span>Power BI</span></div>
+              <h3>Smartphone Market Analysis</h3>
+              <p>15+ brands · 8-year span · Mid-range CAGR outpacing premium by 12%</p>
+              <div class="dna-metrics"><span>15+ Brands</span><span>12% CAGR</span><span>8yr Data</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
 
-    <!-- Centre display card -->
-    <div class="carousel-center">
-      <div class="cc-img-wrap">
-        <img id="ccImg" src="" alt="">
-        <div class="cc-img-overlay"></div>
-      </div>
-      <div class="cc-body">
-        <div class="cc-num" id="ccNum">01</div>
-        <div class="cc-tags" id="ccTags"></div>
-        <h3 class="cc-title" id="ccTitle"></h3>
-        <p  class="cc-desc"  id="ccDesc"></p>
-        <div class="cc-metrics" id="ccMetrics"></div>
-        <a  class="cc-link"   id="ccLink" href="https://github.com/praveenmarshal" target="_blank" rel="noopener">⌘ View on GitHub</a>
-      </div>
-      <div class="cc-scanline"></div>
+        <div class="dna-node" data-idx="1">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="1">
+            <div class="dna-card-num">02</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/7947568/pexels-photo-7947568.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Nykaa Campaign Hub" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>Power BI</span><span>DAX</span><span>Analytics</span></div>
+              <h3>Nykaa Campaign Intelligence Hub</h3>
+              <p>55,000+ records · 6 channels · 61% revenue from email + influencer</p>
+              <div class="dna-metrics"><span>55K+ Records</span><span>6 Channels</span><span>61% Revenue</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="2">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="2">
+            <div class="dna-card-num">03</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Customer Churn" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>SQL</span><span>Power BI</span><span>DAX</span></div>
+              <h3>Customer Churn Analysis</h3>
+              <p>68% churn probability identified · High-risk segment targeting · 4 dashboards</p>
+              <div class="dna-metrics"><span>68% Churn</span><span>DAX Measures</span><span>4 Dashboards</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="3">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="3">
+            <div class="dna-card-num">04</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Nassau Candy" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>Python</span><span>Streamlit</span><span>Plotly</span></div>
+              <h3>Nassau Candy Profitability Dashboard</h3>
+              <p>Live Streamlit dashboard · Pareto analysis · Factory-level insights</p>
+              <div class="dna-metrics"><span>Live Dashboard</span><span>Pareto</span><span>5+ KPIs</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="4">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="4">
+            <div class="dna-card-num">05</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Retail Sales" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>SQL</span><span>Power BI</span><span>Analytics</span></div>
+              <h3>Retail Sales Analysis Dashboard</h3>
+              <p>Multi-page dashboard · Advanced SQL window functions · 10+ outlets</p>
+              <div class="dna-metrics"><span>Multi-Page</span><span>SQL Advanced</span><span>10+ Outlets</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="5">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="5">
+            <div class="dna-card-num">06</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Pizza Sales" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>SQL</span><span>Power BI</span><span>KPI</span></div>
+              <h3>Pizza Sales Analytics Dashboard</h3>
+              <p>KPI-driven visualisations · Sales trends · Revenue distribution analysis</p>
+              <div class="dna-metrics"><span>KPI Driven</span><span>Trend Analysis</span><span>BI Dashboard</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="6">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="6">
+            <div class="dna-card-num">07</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/10469894/pexels-photo-10469894.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Cricket Dashboard" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>Power BI</span><span>DAX</span><span>Sports</span></div>
+              <h3>Cricket Player Analysis Dashboard</h3>
+              <p>ODI · T20 · Test formats · Dynamic filtering · Batting &amp; bowling metrics</p>
+              <div class="dna-metrics"><span>3 Formats</span><span>ODI·T20·Test</span><span>DAX Metrics</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+        <div class="dna-node" data-idx="7">
+          <div class="dna-connector top"></div>
+          <div class="dna-card" data-idx="7">
+            <div class="dna-card-num">08</div>
+            <div class="dna-card-img"><img src="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=300&w=500" alt="Tamil Movie" loading="lazy"></div>
+            <div class="dna-card-body">
+              <div class="dna-tags"><span>Python</span><span>API</span><span>TMDb</span></div>
+              <h3>Tamil Movie Recommendation System</h3>
+              <p>TMDb API · IMDb-style weighted ranking · Real-time personalised recommendations</p>
+              <div class="dna-metrics"><span>TMDb API</span><span>IMDb Ranking</span><span>Real-time</span></div>
+              <a href="https://github.com/praveenmarshal" target="_blank" rel="noopener" class="dna-link">⌘ GitHub</a>
+            </div>
+          </div>
+          <div class="dna-connector bottom"></div>
+        </div>
+
+      </div><!-- end dna-track -->
+    </div><!-- end dna-scroll-wrap -->
+
+    <!-- Scroll hint -->
+    <div class="dna-scroll-hint">
+      <span class="dsh-arrow">←</span>
+      <span class="dsh-text">DRAG TO EXPLORE</span>
+      <span class="dsh-arrow">→</span>
     </div>
-
-    <!-- Carousel thumbnails (circular) -->
-    <div class="carousel-ring" id="carouselRing">
-      <div class="carousel-thumb active" data-idx="0"><span>01</span></div>
-      <div class="carousel-thumb" data-idx="1"><span>02</span></div>
-      <div class="carousel-thumb" data-idx="2"><span>03</span></div>
-      <div class="carousel-thumb" data-idx="3"><span>04</span></div>
-      <div class="carousel-thumb" data-idx="4"><span>05</span></div>
-      <div class="carousel-thumb" data-idx="5"><span>06</span></div>
-      <div class="carousel-thumb" data-idx="6"><span>07</span></div>
-      <div class="carousel-thumb" data-idx="7"><span>08</span></div>
-    </div>
   </div>
 
-  <!-- Controls -->
-  <div class="carousel-controls">
-    <button class="carousel-btn" id="cPrev" onclick="carouselPrev()">
-      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <div class="carousel-dots" id="carouselDots"></div>
-    <button class="carousel-btn" id="cNext" onclick="carouselNext()">
-      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
+  <!-- Progress dots -->
+  <div class="dna-progress-dots" id="dnaProgressDots"></div>
 </section>
 
 <!-- RESUME -->
