@@ -846,6 +846,21 @@ section{
   box-shadow:0 0 8px var(--accent);
 }
 
+/* Key findings mini-table inside DNA card */
+.dna-key-findings {
+  display:flex; flex-direction:column; gap:.3rem;
+  margin-bottom:.8rem;
+  padding:.6rem .8rem;
+  background:rgba(0,229,255,.04);
+  border:1px solid rgba(0,229,255,.1);
+  border-radius:8px;
+}
+.dkf-item {
+  display:flex; justify-content:space-between; align-items:center;
+}
+.dkf-label { font-size:.68rem; color:var(--muted); }
+.dkf-val   { font-family:var(--font-display); font-size:.75rem; font-weight:700; color:var(--accent); }
+
 @media(max-width:768px){
   .dna-scene { height:520px }
   .dna-node  { width:280px }
